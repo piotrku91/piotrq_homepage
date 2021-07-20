@@ -9,18 +9,15 @@
 </head>
 
 <?php
-$ref = $_GET['ref'];
-include 'data/mysqlsett.php';
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
+include 'conf/mysqlsett.php';
+include 'conf/action.php';
 ?>
 
-<title><?php $ref ?></title>
+<title><?php echo $mainpage_title ?></title>
 
 <body>
     <div class="center">
-
 
         <img src="gfx/pro2.png" class="col-s-1 center" style=" margin-top:16px; margin-bottom:10px;">
 
@@ -41,7 +38,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             if ($result->num_rows > 0) {
                 foreach ($result as $row) {
 
-                    if ($row["isSubmenu"] == 0) {
+                    if (!$row["isSubmenu"]) {
                         if (!$isClosedSub) {
                             echo "</div></div>";
                             $isClosedSub = true;
@@ -50,7 +47,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                     };
 
 
-                    if ($row["isSubmenu"] == 1) {
+                    if ($row["isSubmenu"]) {
                         if ($isClosedSub) {
                             echo  "<div class=\"dropdown\">";
                             echo  "<button class=\"dropbtn\">" . $row["display_name"] . " ";
@@ -59,13 +56,11 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                             echo  "<div class=\"dropdown-content\">";
                             $isClosedSub = false;
                         } else {
-                            echo      "<a href=\"?ref=" . $row["page_ref"] . "\">" . $row["sub_display_name"] .  "</a>";
                         }
+                        echo      "<a href=\"?ref=" . $row["sub_page_ref"] . "\">" . $row["sub_display_name"] .  "</a>";
                     }
                 }
-            } else {
-                echo "Tabele menu są puste.";
-            }
+            } 
 
 
             $conn->close();
@@ -78,19 +73,22 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 
         <div class="content-page col-s-2"><br><br>
-            <h3 class="braces">{</h3>
-            <h3>Strona główna</h3>
-            <h3 class="braces">}</h3>
+
+            <?php
+            $pages_folder = "fresh/";
+            $actual_page = $pages_folder . "start";
+            
+            if ($ref != "" && file_exists($pages_folder . $ref)) {
+                $actual_page = $pages_folder . $ref;
+            }
+            include $actual_page;
+            ?>
 
 
-
-
-            <p>Witam serdecznie :)</p>
         </div>
 
         <div class="footer col-s-2">
-
-            <p>page by PiotrQ</p>
+            <p><?php echo ":: ". $footer_text. " ::" ?></p>
         </div>
 
     </div>/<div>

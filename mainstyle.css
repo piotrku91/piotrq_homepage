@@ -35,6 +35,8 @@
     .footer {
         background-color: #00161f;
         margin: auto;
+        text-align: center;
+        align-items: center ;
         padding: 0;
         font-weight: bold;
         font-size: 13px;
@@ -90,7 +92,7 @@
     .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #ff8700;
+        background-color: #ff8b17;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
