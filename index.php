@@ -26,11 +26,11 @@ include 'conf/action.php';
             <?php
 
             $sql = "SELECT t1.id, t1.display_name,t1.isSubmenu,t1.page_ref,
-            t2.display_name AS sub_display_name, t2.page_ref AS sub_page_ref
+            t2.id AS sub_id,t2.display_name AS sub_display_name, t2.page_ref AS sub_page_ref
             FROM web.menu AS t1 
             LEFT JOIN submenus AS t2 
             ON t1.subTableName=t2.subMenuName
-            ORDER BY t1.id;";
+            ORDER BY t1.id, sub_id;";
 
             $result = $conn->query($sql);
             $isClosedSub = true;
@@ -62,11 +62,10 @@ include 'conf/action.php';
                 }
             } 
 
-
-            $conn->close();
+            echo "<a href=\"" .$li_link. "\" target=\"_blank\" style=\"margin:0; padding: 6px 6px; float:right; \"><img src=\"gfx/liico.png\"></a>";
+            echo "<a href=\"" .$gh_link. "\" target=\"_blank\" style=\"margin:0; padding: 6px 6px; float:right; \"><img src=\"gfx/ghico.png\"></a>";
+            echo "<a href=\"" .$yt_link. "\" target=\"_blank\" style=\"margin:0; padding: 6px 6px; float:right; \"><img src=\"gfx/ytico2.png\"></a>";
             ?>
-
-
 
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
@@ -88,7 +87,7 @@ include 'conf/action.php';
         </div>
 
         <div class="footer col-s-2">
-            <p><?php echo ":: ". $footer_text. " ::" ?></p>
+            <p><?php echo ":: ". $footer_text. " ::";  $conn->close(); ?></p>
         </div>
 
     </div>/<div>
