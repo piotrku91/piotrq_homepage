@@ -9,9 +9,11 @@
 </head>
 
 <?php
-
-include 'conf/mysqlsett.php';
-include 'conf/action.php';
+include 'conf/loader.php';
+?>
+<?php
+   session_start();
+   session_set_cookie_params('3600');
 ?>
 
 <title><?php echo $mainpage_title ?></title>
@@ -23,51 +25,8 @@ include 'conf/action.php';
 
         <div class="topnav col-s-2" id="myTopnav">
 
-            <?php
+         <?php include "navibar.php" ?>
 
-            $sql = "SELECT t1.id, t1.display_name,t1.isSubmenu,t1.page_ref,
-            t2.id AS sub_id,t2.display_name AS sub_display_name, t2.page_ref AS sub_page_ref
-            FROM web.menu AS t1 
-            LEFT JOIN submenus AS t2 
-            ON t1.subTableName=t2.subMenuName
-            ORDER BY t1.id, sub_id;";
-
-            $result = $conn->query($sql);
-            $isClosedSub = true;
-
-            if ($result->num_rows > 0) {
-                foreach ($result as $row) {
-
-                    if (!$row["isSubmenu"]) {
-                        if (!$isClosedSub) {
-                            echo "</div></div>";
-                            $isClosedSub = true;
-                        };
-                        echo  "<a href=\"?ref=" . $row["page_ref"] . "\">" . $row["display_name"] . "</a> ";
-                    };
-
-
-                    if ($row["isSubmenu"]) {
-                        if ($isClosedSub) {
-                            echo  "<div class=\"dropdown\">";
-                            echo  "<button class=\"dropbtn\">" . $row["display_name"] . " ";
-                            echo      "<i class=\"fa fa-caret-down\"></i>";
-                            echo  "</button>";
-                            echo  "<div class=\"dropdown-content\">";
-                            $isClosedSub = false;
-                        } else {
-                        }
-                        echo      "<a href=\"?ref=" . $row["sub_page_ref"] . "\">" . $row["sub_display_name"] .  "</a>";
-                    }
-                }
-            } 
-
-            echo "<a href=\"" .$li_link. "\" target=\"_blank\" style=\"margin:0; padding: 6px 6px; float:right; \"><img src=\"gfx/liico.png\"></a>";
-            echo "<a href=\"" .$gh_link. "\" target=\"_blank\" style=\"margin:0; padding: 6px 6px; float:right; \"><img src=\"gfx/ghico.png\"></a>";
-            echo "<a href=\"" .$yt_link. "\" target=\"_blank\" style=\"margin:0; padding: 6px 6px; float:right; \"><img src=\"gfx/ytico2.png\"></a>";
-            ?>
-
-            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
 
 
@@ -80,9 +39,15 @@ include 'conf/action.php';
             if ($ref != "" && file_exists($pages_folder . $ref)) {
                 $actual_page = $pages_folder . $ref;
             }
-            include $actual_page;
-            ?>
 
+            
+            include $admin->special_include_if("edit", ($force==""));
+            include $admin->special_include_if("text_area_opener", ($force=="edit") || ($force=="save"));
+            if (!$admin->isEditMode()) {include $actual_page;} else {echo $admin->special_raw_includer($actual_page);};
+            include $admin->special_include_if("text_area_closer", ($force=="edit"));
+            
+              
+           ?>
 
         </div>
 

@@ -44,6 +44,14 @@
         text-shadow: 1px 1px #ff8700;
     }
 
+  .editor_f
+  {
+    font-family: Verdana;
+    color:#00161f;
+    white-space: pre-wrap;
+    font-size: 14px;
+  }
+
 
     .topnav {
         overflow: hidden;
