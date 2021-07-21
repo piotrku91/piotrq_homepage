@@ -1,0 +1,3 @@
+[submodule "conf/admin_ops"]
+	path = conf/admin_ops
+	url = https://github.com/piotrku91/piotrq_homepage_admin.git
