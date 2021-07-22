@@ -18,6 +18,14 @@
         text-decoration: none;
     }
 
+    .content-page div{
+        background-color: #4e7788;
+        font-weight: bold;
+        margin-left: 6%;
+        margin-right: 6%;
+        padding:10px;
+    }
+
     .content-page h3 {
         font-size: 32px;
         color: white;
@@ -46,10 +54,13 @@
 
   .editor_f
   {
-    font-family: Verdana;
-    color:#00161f;
+    font-family: Helvetica;
+    color:#47d405;
     white-space: pre-wrap;
     font-size: 14px;
+    font-weight: bold;
+    word-wrap: normal;
+    background-color: rgb(0, 15, 27);
   }
 
 
@@ -136,7 +147,23 @@
 
     [class*="col-"] {
         width: 100%;
+            
     }
+
+    [class*="font-"]
+    {
+        font-size: 12px;
+        margin-left: 4%;
+        margin-right: 4%;
+        color: #ff8700;
+        font-weight: bold;
+        font-family: Helvetica, sans-serif;
+        line-height: 22px; 
+         text-align: justify; 
+         text-justify: inter-word;
+         text-indent: 30px;
+    }
+
 
     @media screen and (max-width: 600px) {
 
@@ -144,6 +171,7 @@
         .dropdown .dropbtn {
             display: none;
         }
+
 
         .topnav a.icon {
             float: right;
@@ -191,9 +219,25 @@
         .col-s-1 {
             width: 100%;
         }
-
         .col-s-2 {
             width: 60%;
+        }
+        .col-s-3 {
+            width: 80%;
+        }
+
+        .font-p
+        {
+            font-size: 16px;
+            margin-left: 6%;
+            margin-right: 6%;
+            color: #ff8700;
+            font-weight: bold;
+            font-family: Helvetica, sans-serif;
+            line-height: 22px; 
+             text-align: justify; 
+             text-justify: inter-word;
+             text-indent: 30px;
         }
 
     }

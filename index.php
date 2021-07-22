@@ -33,13 +33,6 @@ include 'conf/loader.php';
         <div class="content-page col-s-2"><br><br>
 
             <?php
-            $pages_folder = "fresh/";
-            $actual_page = $pages_folder . "start";
-            
-            if ($ref != "" && file_exists($pages_folder . $ref)) {
-                $actual_page = $pages_folder . $ref;
-            }
-
             
             include $admin->special_include_if("edit", ($force==""));
             include $admin->special_include_if("text_area_opener", ($force=="edit") || ($force=="save"));
